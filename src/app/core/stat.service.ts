@@ -90,8 +90,11 @@ export class StatService {
       statLookup[stat.id] = stat;
     });
 
+    const vStats = this.valuesService.stats;
+    const vEle = this.valuesService.elements;
+
     function getPc(stat) {
-      var statDef = this.valuesService.stats[stat.id];
+      var statDef = vStats[stat.id];
       if (statLookup[statDef.pc]) {
         return Number(statLookup[statDef.pc].max);
       }
@@ -101,7 +104,7 @@ export class StatService {
     }
 
     function getSkillPc(stat) {
-      var statDef = this.valuesService.stats[stat.id];
+      var statDef = vStats[stat.id];
       if (statLookup[statDef.skPc]) {
         return Number(statLookup[statDef.skPc].max);
       }
@@ -318,7 +321,7 @@ export class StatService {
       // apply element(s)
       var avgDmg = nonEleDamage;
       if (group.element && group.element.id > 0) {
-        var elementStat = statLookup[this.valuesService.elements[group.element.id].dmgStat];
+        var elementStat = statLookup[vEle[group.element.id].dmgStat];
         if (elementStat) {
           avgDmg = avgDmg * (1 + Number(elementStat.max)) * (1 - Number(eleResist));
         }
@@ -341,7 +344,7 @@ export class StatService {
 
       if (secElementId != priElementId) {
         if (secElementId > 0) {
-          var secondaryElementStat = statLookup[this.valuesService.elements[group.secondaryElement.id].dmgStat];
+          var secondaryElementStat = statLookup[vEle[group.secondaryElement.id].dmgStat];
           if (secondaryElementStat) {
             var secAvgDmg = nonEleDamage * (1 + Number(secondaryElementStat.max)) * (1 - Number(eleResist));
             addStat({ id: id + 1000, max: secAvgDmg });

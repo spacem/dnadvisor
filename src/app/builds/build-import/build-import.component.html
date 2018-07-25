@@ -7,25 +7,10 @@
     <br />
     <input type="file" #file (change)="onChange(file.files)" accept=".json" />
   </div>
-  <div class="row" *ngIf="build">
+  <div class="row" *ngIf="build$ | async as build">
     <div class="col-12">
-      <h3>
-        <app-job-icon item="build.job"></app-job-icon>
-        {{buildName}}
-        <span *ngIf="build.guild">[{{build.guild}}]</span>
-        <small>
-          <span *ngIf="build.region">in {{build.region}}</span>
-          <span *ngIf="build.about">
-            <br />
-            <em>
-              {{build.about}}
-            </em>
-          </span>
-          <br />
-        </small>
-      </h3>
-
-      <button class="btn btn-default" (click)="copyLocally()">
+      
+      <button class="btn btn-default" (click)="copyLocally(build)">
         {{'copy into local builds' | translate}}
       </button>
 

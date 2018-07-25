@@ -1,0 +1,105 @@
+<div class="col-xs-12">
+    <div class="row">
+      <!-- Header -->
+      <div class="col-xs-12 col-md-5 col-lg-6 group-header" *ngIf="!server">
+          <h3 class="text-left">
+          <app-job-icon item="build.job"></app-job-icon>
+          {{buildName}}
+          <small>
+            <span [hidden]="!(build.playerLevel > 0 && build.job && build.job.id > 0 && build.enemyLevel > 0)">
+              lv{{build.playerLevel}}&nbsp;{{build.job.name}}&nbsp;vs&nbsp;lv{{build.enemyLevel}}&nbsp;
+            </span>
+            <br />
+            <span class="hidden-xs">{{getSaveDate()}} {{getSaveTime()}} <br /></span>
+            <app-stats build="build" stats="stats.calculatedStats" separator="'|'" filter="'summaryDisplay'">
+            </app-stats>
+          </small>
+          </h3>
+      </div>
+      <!-- Small screen categories -->
+      <div class="col-xs-12 visible-xs-block">
+        <app-category-links collapse="true" cat="category" build-screen="true" on-change="changeCategory()">
+        </app-category-links>
+      </div>
+      <!-- Small screen view switcher -->
+      <div class="col-xs-12 visible-xs-block">
+        <button (click)="xsView = null" class="btn btn-default" [disabled]="!xsView">
+          {{'equip' | translate}}
+        </button>
+        <button (click)="xsView = 'actions'" class="btn btn-default" [disabled]="xsView == 'actions'">
+          {{'build actions' | translate}}
+        </button>
+        <button (click)="xsView = 'stats'" class="btn btn-default" [disabled]="xsView == 'stats'">
+          {{'build stats' | translate}}
+        </button>
+      </div>
+      <!-- actions -->
+      <div class="col-xs-12 col-md-7 col-lg-6" *ngIf="!server" [ngClass]="{'hidden-xs': xsView != 'actions'}">
+        <br class="hidden-xs hidden-sm" /><br class="hidden-xs hidden-sm" />
+      </div>
+      <div class="col-xs-6" [hidden]="!(stats.calculatedStats.length == 0)">
+      </div>
+      <div class="col-xs-10 col-md-12 alert alert-danger" role="alert" *ngIf="stats.calculatedStats.length == 0 || stats.nakedStats.length == 0">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> 
+        {{'you must edit the build and set both level and class' | translate}}
+      </div>
+      
+      <div class="col-xs-12 col-md-9" [ngClass]="{'hidden-xs': xsView}">
+        <br />
+        <div class="row">
+          <!-- categories for large screens -->
+          <div class="hidden-xs col-sm-4 col-md-4">
+            <app-category-links cat="category" build-screen="true" on-change="changeCategory()">
+            </app-category-links>
+          </div>
+      
+          <!-- categories for large screens -->
+          <div class="col-xs-12 col-sm-8 col-md-8 dnsim-fade" *ngIf="!categoryChanging">
+            <!-- links above items (quick add/new custom items/position talismans) -->
+            <div class="row table-look">
+              <div class="col-xs-12" *ngIf="!server">
+                <span *ngIf="category.name == 'talisman'">&nbsp;
+                  <a class="btn btn-link" routerLink="talismans">
+                    <span class="glyphicon glyphicon-move" aria-hidden="true"></span>&nbsp;{{'position' | translate}}
+                  </a>
+                </span>
+                <span *ngIf="category.name == 'custom'">
+                  &nbsp;
+                  <button class="btn btn-link" (click)="newCustom()">
+                    <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>&nbsp;{{'new custom item' | translate}}
+                  </button>
+                </span>
+              </div>
+            </div>
+  
+            <!-- build item list -->
+            <app-build-item-list
+              category="category"
+              build="build"
+              build-name="buildName"
+              server="server"
+              on-change="handleChange()">
+            </app-build-item-list>
+  
+            <!-- search link -->
+            <div class="row table-look" *ngIf="category.name != 'custom'">
+              <div class="col-xs-12" *ngIf="!server">
+                <a routerLink="search?cat={{category.path}}">
+                  <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                  {{'search' | translate}} {{category.name}}
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- stats -->
+      <div class="col-xs-12 col-md-3 group-header" [ngClass]="{'hidden-xs': xsView != 'stats'}">
+        <div class="row">
+         <app-build-stats stats="stats" build="build" build-name="buildName">
+         </app-build-stats>
+        </div>
+      </div>
+    </div>
+  </div>
