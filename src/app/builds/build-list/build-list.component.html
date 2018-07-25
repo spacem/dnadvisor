@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col-xs-12 col-sm-8 col-lg-9">
+  <div class="row">
+    <div class="col-xs-12">
+      <a routerLink="import" class="btn btn-link btn-block group-header-btn">
+        <h3 class="text-left"><span class="glyphicon glyphicon-import" aria-hidden="true"></span> {{'import' | translate}}<br />
+        <small>{{'import a build from a json build file' | translate}}</small>
+        </h3>
+      </a>
+    </div>
+  </div>
+  <div id="saved-group" class="row" *ngFor="let buildName of buildNames">
+    
+    <div class="col-xs-12">
+    <button class="btn btn-link btn-block group-header-btn" (click)="toggleGroup(builds[buildName])">
+      <app-build-summary [buildName]="buildName" [build]="builds[buildName]">
+      </app-build-summary>
+    </button>
+    </div>
+    
+  </div>
+  </div>
+  <div class="hidden-xs col-sm-4 col-lg-3">
+    <img src="assets/images/jasmin.png">
+  </div>
+</div>

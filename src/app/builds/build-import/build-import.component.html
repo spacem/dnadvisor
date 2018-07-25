@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="col-12">
+    <h3>
+      {{'import build' | translate}}
+      <small>{{'choose a file containing dngearsim build data' | translate}}</small>
+    </h3>
+    <br />
+    <input type="file" #file (change)="onChange(file.files)" accept=".json" />
+  </div>
+  <div class="row" *ngIf="build">
+    <div class="col-12">
+      <h3>
+        <app-job-icon item="build.job"></app-job-icon>
+        {{buildName}}
+        <span *ngIf="build.guild">[{{build.guild}}]</span>
+        <small>
+          <span *ngIf="build.region">in {{build.region}}</span>
+          <span *ngIf="build.about">
+            <br />
+            <em>
+              {{build.about}}
+            </em>
+          </span>
+          <br />
+        </small>
+      </h3>
+
+      <button class="btn btn-default" (click)="copyLocally()">
+        {{'copy into local builds' | translate}}
+      </button>
+
+      <app-build [buildName]="buildName" [build]="build">
+      </app-build>
+    </div>
+  </div>
