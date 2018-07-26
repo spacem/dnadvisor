@@ -9,11 +9,11 @@
       </a>
     </div>
   </div>
-  <div id="saved-group" class="row" *ngFor="let buildName of buildNames">
+  <div id="saved-group" class="row" *ngFor="let b of builds">
     
     <div class="col-xs-12">
-    <button class="btn btn-link btn-block group-header-btn" (click)="toggleGroup(builds[buildName])">
-      <app-build-summary [buildName]="buildName" [build]="builds[buildName]">
+    <button class="btn btn-link btn-block group-header-btn" (click)="toggleGroup(b.name)">
+      <app-build-summary [buildName]="b.name" [build]="b.build">
       </app-build-summary>
     </button>
     </div>

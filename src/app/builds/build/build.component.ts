@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { StatService } from '../../core/stat.service';
 import { ItemCategoryService } from '../../core/item-category.service';
 import { SaveService } from '../../core/save.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-build',
@@ -22,10 +23,27 @@ export class BuildComponent implements OnInit {
   constructor(
     private statService: StatService,
     private itemCategoryService: ItemCategoryService,
-    private saveService: SaveService
+    private saveService: SaveService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
+    if (!this.buildName) {
+      this.buildName = this.route.snapshot.paramMap.get('buildName');
+    }
+
+    if (!this.build) {
+      const allBuilds = this.saveService.getSavedItems();
+      this.build = allBuilds[this.buildName];
+    }
+
+    
+    if (this.build) {
+      this.saveService.setCurrentBuild(this.buildName);
+    } else {
+      return;
+    }
+
     this.stats = this.statService.getBuildStats(this.build);
     var selectedCategory = localStorage.getItem('selectedItemCategory');
     this.category = this.itemCategoryService.byName(selectedCategory);

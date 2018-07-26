@@ -1,3 +1,3 @@
-Hosted at https://dngearsim.netlify.com
+Hosted at https://dnadvisor.netlify.com
 
-This is a work in progress rewrite of dngearsim using the latest angular framework."# dnadvisor" 
+This is a work in progress rewrite of dngearsim using the latest angular framework.

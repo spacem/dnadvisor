@@ -473,9 +473,14 @@ export class StatService {
   getBuildStats(build) {
     var stats: any = {};
     stats.nakedStats = this.getNakedStats(build);
-    stats.combinedStats = this.getCombinedStats(build.items);
-    stats.setStats = this.getSetStats(build.items);
-    stats.allStats = stats.nakedStats.concat(stats.combinedStats).concat(stats.setStats);
+    if(build.items) {
+      stats.combinedStats = this.getCombinedStats(build.items);
+      stats.setStats = this.getSetStats(build.items);
+      stats.allStats = stats.nakedStats.concat(stats.combinedStats).concat(stats.setStats);
+    } else {
+      stats.allStats = [];
+    }
+
     if (build.heroStats && build.heroStats.length) {
       stats.heroStats = build.heroStats;
       stats.allStats = stats.allStats.concat(build.heroStats);

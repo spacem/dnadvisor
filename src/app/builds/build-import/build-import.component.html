@@ -1,20 +1,21 @@
 <div class="row">
-  <div class="col-12">
+  <div class="col-xs-12">
     <h3>
       {{'import build' | translate}}
       <small>{{'choose a file containing dngearsim build data' | translate}}</small>
     </h3>
-    <br />
     <input type="file" #file (change)="onChange(file.files)" accept=".json" />
+    <br />
   </div>
-  <div class="row" *ngIf="build$ | async as build">
-    <div class="col-12">
-      
-      <button class="btn btn-default" (click)="copyLocally(build)">
-        {{'copy into local builds' | translate}}
-      </button>
+</div>
+<div class="row" *ngIf="build$ | async as build">
+  <div class="col-xs-12">
 
-      <app-build [buildName]="buildName" [build]="build">
-      </app-build>
-    </div>
+    <button class="btn btn-default" (click)="copyLocally(build)">
+      {{'copy into local builds' | translate}}
+    </button>
+
+    <app-build [buildName]="buildName" [build]="build">
+    </app-build>
   </div>
+</div>

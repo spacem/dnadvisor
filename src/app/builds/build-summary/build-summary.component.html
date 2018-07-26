@@ -1,3 +1,16 @@
-<p>
-  build-summary works!
-</p>
+<h3 class="text-left">
+  <app-job-icon [item]="build.job"></app-job-icon>
+  {{buildName}}
+<small>
+  <span *ngIf="(build.playerLevel > 0)">lv{{build.playerLevel}}&nbsp;</span>
+  <span *ngIf="(build.job && build.job.id > 0)">{{build.job.name}}&nbsp;</span>
+  <span *ngIf="(build.enemyLevel > 0)">{{'vs' | translate}}&nbsp;lv{{build.enemyLevel}}&nbsp;</span>
+  <br />
+  <span *ngIf="getSaveDate(build)">
+  {{getSaveDate()}} {{getSaveTime()}}
+  <span class="hidden-xs"> |&nbsp; </span><br class="visible-xs" />
+  </span>
+  <app-stats [build]="build" [stats]="stats.calculatedStats" [pipeSeparator]="true" [filter]="'summaryDisplay'">
+  </app-stats>
+</small>
+</h3>

@@ -93,7 +93,7 @@ export class NavComponent implements OnInit, OnDestroy {
       }
       else if (currentBuild && currentBuild != 'null') {
         menu = this.withBuildMenu;
-        this.buildAction.path = 'build?buildName=' + currentBuild;
+        this.buildAction.path = 'builds/' + currentBuild;
         this.buildAction.name = currentBuild;
         if (currentBuild in this.savedItems) {
           this.buildAction.build = this.savedItems[currentBuild];
